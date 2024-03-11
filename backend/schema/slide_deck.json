@@ -1,0 +1,14 @@
+{
+    "title": {
+        "bson_type": "string",
+        "description": "title must be a string and it is required"
+    },
+    "creation_date": {
+        "bson_type": "string",
+        "description": "Python datetime objected converted to a string and it is required"
+    },
+    "slide_list": {
+        "bson_type": "array",
+        "description": "can be empty when the deck is created but must be created with the deck"
+    }
+}
