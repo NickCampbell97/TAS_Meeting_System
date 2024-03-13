@@ -3,6 +3,7 @@ import Stack from '@mui/material/Stack';
 import ButtonGroup from './ButtonGroup';
 import Searchbar from './Searchbar';
 import SlideList from './SlideList';
+import TestButton from './TestButton';
 
 const SideBar = ({ onClick }) => {
     return (
@@ -11,6 +12,7 @@ const SideBar = ({ onClick }) => {
               <ButtonGroup />
               <Searchbar />
               <SlideList onClick={onClick}/>
+              <TestButton />
             </Stack>
         </div>
     );

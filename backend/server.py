@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request
 from pymongo import MongoClient
 from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -81,6 +82,35 @@ def create_new_deck():
         return jsonify({'message': 'Received'}), 200
     else:
         return jsonify({'error': 'Method not Allowed'}), 405
+    
+
+@app.route('/api/upload-doc', methods=['POST'])
+def upload_document():
+    #  Check if the POST request has the file part
+    if 'file' not in request.files:
+        return jsonify({'error': 'No file part'}), 400
+
+    file = request.files['file']
+
+
+    # If the user does not select a file, the browser submits an empty file without a filename
+    if file.filename == '':
+        return jsonify({'error': 'No selected file'}), 400
+
+    # Assuming you want to store documents in a subdirectory named 'documents' within the backend directory
+    upload_directory = os.path.join(os.getcwd(), 'documents')
+
+
+    # Create the directory if it doesn't exist
+    os.makedirs(upload_directory, exist_ok=True)
+
+
+    # Save the file to the upload directory
+    file_path = os.path.join(upload_directory, file.filename)
+    file.save(file_path)
+
+
+    return jsonify({'message': 'File uploaded successfully'}), 200
 
 
 if __name__ == '__main__':

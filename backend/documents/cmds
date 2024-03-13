@@ -1,0 +1,2 @@
+scp <filename> usaclsd0007@asax.asc.edu:~
+ssh usaclsd0007@asax.asc.edu
