@@ -5,15 +5,15 @@ import FolderIcon from '@mui/icons-material/Folder';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import NewSlideButton from "./NewSlideButton";
-import SlideWindow from "../design_pane/SlideWindow";
 
-const SlideList = ({ onClick }) => {
+const SlideList = ({ onClick, onSlideOpen, slideDecks }) => {
 
-    const [slideDecks, setSlideDecks] = useState([]);
+    //const [slideDecks, setSlideDecks] = useState([slideDecks]);
     const [slides, setSlides] = useState([]);
     const [selectedDeck, setSelectedDeck] = useState(null);
 
-    useEffect (() => {
+   /*
+     useEffect (() => {
         async function fetchSlideDecks() {
             try {
                 const response = await fetch('/api/slide-decks');
@@ -28,7 +28,8 @@ const SlideList = ({ onClick }) => {
         }
 
         fetchSlideDecks();
-    }, []);
+    }, [decks]);
+   */
 
     const handleDoubleClick = async (deckName) => {
         console.log('Double clicked on deck:', deckName);
@@ -45,34 +46,6 @@ const SlideList = ({ onClick }) => {
         } catch (error) {
             console.error('Error fetching slides: ', error);
         }
-    };
-
-    /*
-    const [slideHeader, setSlideHeader] = useState('');
-    const [slideBody, setSlideBody] = useState(''); // change to get an array after testing
-    const [slideDocuments, setSlideDocuments] = useState(''); // change to get an array as well
-    */
-    const [slideDataList, setSlideDataList] = useState([]); // checking to pass to slide window if all data is in an array
-
-    const handleSlideClick = async (slide) => {
-      console.log('Double clicked slide: ', slide);
-      try {
-        let baseSlidePath = '/api/slide-info/';
-        let fullSlidePath = baseSlidePath.concat(slide);
-        const response = await fetch(fullSlidePath);
-        if (!response.ok) {
-          throw new Error('Failed to get slide info');
-        }
-        const data = await response.json();
-        /**
-        setSlideHeader(data.slideHeader);
-        setSlideBody(data.slideBody);
-        setSlideDocuments(data.slideDocuments);
-         */
-        setSlideDataList([data.slideDataList]);
-      } catch (error) {
-        console.error('Error fetching slide info: ', error);
-      }
     };
     
     // Add new slide popup button to stack
@@ -106,10 +79,10 @@ const SlideList = ({ onClick }) => {
                   <NewSlideButton onClick={onClick}/>
                 </Stack>
               }
-              style={{ maxHeight: '150px', overflow: 'auto' }}
+              style={{ maxHeight: '190px', overflow: 'auto' }}
             >
               {slides.map((slide, index) => (
-                <ListItemButton key={index} dense divider onDoubleClick={() => handleSlideClick(slide)}>
+                <ListItemButton key={index} dense divider onDoubleClick={() => onSlideOpen(selectedDeck, slide)}>
                   <ListItemText primary={slide} style={{ paddingLeft: '5px', alignItems: 'flex-start', margin: '0px' }} />
                 </ListItemButton>
               ))}

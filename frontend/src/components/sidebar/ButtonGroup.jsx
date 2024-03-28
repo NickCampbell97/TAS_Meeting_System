@@ -6,12 +6,12 @@ import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import NewDeckPopup from './NewDeckPopup';
 
-export default function ButtonGroup() {
+const ButtonGroup = ({ onComplete }) => {
     
     return (
         <div style={{ display: 'inline-block' }}>
           <Stack spacing={1} direction="row" style={{alignItems: 'center'}}>
-            <NewDeckPopup />
+            <NewDeckPopup onComplete={onComplete}/>
             <IconButton>
               <CreateNewFolderIcon />
             </IconButton>
@@ -24,4 +24,6 @@ export default function ButtonGroup() {
           </Stack>
         </div>
       );
-}
+};
+
+export default ButtonGroup;

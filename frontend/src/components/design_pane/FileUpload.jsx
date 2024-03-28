@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import Input from '@mui/material/Input';
+import { Stack, Button } from '@mui/material';
+import FileUploadOutlinedIcon from '@mui/icons-material/FileUploadOutlined';
 
 
-function TestButton() {
+const FileUploadButton = ({ onComplete }) => {
     const [file, setSelectedFile] = useState(null);
     const [message, setMessage] = useState('');
-    const [sesh, setSession] = useState('');
   
     const handleFileChange = (e) => {
         if (e.target.files) {
@@ -30,8 +32,9 @@ function TestButton() {
       
             if (response.ok) {
               const data = await response.json();
-              setSession(data.session_id);
-              setMessage('Success!')
+              setMessage('Success!');
+              setSelectedFile(null);
+              onComplete();
             } else {
               // Handle errors
               setMessage('Failed');
@@ -42,12 +45,11 @@ function TestButton() {
     };
 
     return (
-        <div>
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload}>Upload</button>
-        </div>
-        
+        <Stack spacing={1} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray' }}>
+            <Input type="file" fontSize='small' size='small' style={{ marginTop: '5px' }} onChange={handleFileChange} />
+            <Button variant='outlined' size='small' fontsize='small' startIcon={<FileUploadOutlinedIcon />} style={{ width: '100px', marginTop: '5px', color: 'black', borderColor: 'black' }} onClick={handleUpload}>Upload</Button>
+        </Stack>  
     );
 };
 
-export default TestButton;
+export default FileUploadButton;
