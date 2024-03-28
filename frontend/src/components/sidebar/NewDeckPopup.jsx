@@ -3,7 +3,7 @@ import { Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField } 
 import { IconButton } from '@material-ui/core';
 import AddIcon from '@material-ui/icons/Add';
 
-const NewDeckPopup = () => {
+const NewDeckPopup = ({ onComplete }) => {
   const [open, setOpen] = useState(false);
   const [name, setName] = useState('');
 
@@ -32,6 +32,7 @@ const NewDeckPopup = () => {
         console.log('Form data sent successfully');
         setName('');
         setOpen(false);
+        onComplete();
       } else {
         console.error('Failed to send form data');
       }

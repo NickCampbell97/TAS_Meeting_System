@@ -1,13 +1,79 @@
-import React from 'react';
-import Container from '@mui/material/Container';
+import React, { useState } from 'react';
 import SlideWindow from './SlideWindow';
+import Stack from '@mui/material/Stack';
+import SaveButton from './button_options/SaveButton';
+import { Box } from '@mui/material';
+import InsertSelection from './button_options/InsertSelection';
+import InsertButton from './button_options/InsertButton';
+import DuplicateButton from './button_options/DuplicateButton';
+import DeleteButton from './button_options/DeleteButton';
+import FileUploadButton from './FileUpload';
+import '@fontsource/roboto';
 
-const DesignContainer = ({ color }) => {
+const DesignContainer = ({ color, slideData, deckName }) => {
+
+    const handleSave = () => {
+
+    };
+    
+    const [dialogVisible, setDialogVisible] = useState(false);
+
+    const slideName = slideData.slide_name;
+
+    const handleInsert = async (selectedValue, name, slideID) => {
+
+        if (selectedValue === 'option2') {
+            setDialogVisible(true);
+        }
+
+    };
+
+    const hideFileDialog = () => {
+        setDialogVisible(false);
+    };
+
+    const handleDuplicate = (deck, slide) => {
+
+    };
+
+    const handleDelete = (deck, slide) => {
+
+    };
+
+    const [selectedInsertValue, setSelectedInsertValue] = useState('option1');
+
+    const handleChange = (event) => {
+        setSelectedInsertValue(event.target.value);
+    };
+
+
+    const insertOptions = [
+        { value: 'option1', label: 'Body' },
+        { value: 'option2', label: 'Document' },
+        { value: 'option3', label: 'Header' },
+        { value: 'option4', label: 'Image' },
+        { value: 'option5', label: 'Comment' }
+    ];
     
     return (
-        <Container style={{ backgroundColor: 'lightgray', height: '570px', width: '850px', overflow: 'auto' }}>
-            <SlideWindow color={color} />
-        </Container>
+        <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3, backgroundColor: 'lightgray', height: '570px', width: '850px' }}>
+            <Stack spacing={4} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray', width: '840px' }}>
+                <Stack spacing={1} direction="row" style={{alignItems: 'center', backgroundColor: 'white', width: '500px', marginTop: '8px'}}>
+                    <SaveButton onSave={handleSave} />
+                    <InsertSelection
+                        value={selectedInsertValue}
+                        onChange={handleChange}
+                        options={insertOptions}
+                    />
+                    <InsertButton onClick={() => handleInsert(selectedInsertValue, deckName, slideName)} />
+                    <DuplicateButton onClick={() => handleDuplicate(deckName, slideData)} />
+                    <DeleteButton onClick={() => handleDelete(deckName, slideData)} />
+                    <p style={{ textAlign: 'right', marginLeft: '130px', fontSize: '14px', font: 'roboto' }}>{deckName}</p>
+                </Stack>
+                {dialogVisible && <div><FileUploadButton onComplete={hideFileDialog}/></div>}
+            </Stack>
+            <SlideWindow color={color} slideData={slideData} />
+        </Box> 
     );
 
 };

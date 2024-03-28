@@ -1,30 +1,29 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
 
-const SlideWindow = ({ color }) => {
+const SlideWindow = ({ color, slideData }) => {
     return (
         <Box
             style={{
                 backgroundColor: color,
-                width: '200px',
-                height: '200px',
-                marginTop: '190px',
-                marginLeft: '300px',
-                alignSelf: 'center'
+                width: '848px',
+                height: '480px',
+                marginTop: '10px',
+                display: 'flex',
+                justifyContent: 'center',
+                textAlign: 'center'
             }}
         >
-            <p> Slide Info:</p>
+            {slideData && (
+                <div style={{ marginTop: '5px' }}>
+                    <p>{slideData.slide_name}</p>
+                    <h2>{slideData.header}</h2>
+                    <p>{slideData.body}</p>
+                </div>
+            )}
             
         </Box>
     );
 };
-
-/**
- * <ul>
-                {data.map((string, index) => (
-                <li key={index}>{string}</li>
-                ))}
-            </ul>
- */
 
 export default SlideWindow;
