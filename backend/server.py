@@ -6,7 +6,7 @@ import os
 app = Flask(__name__)
 
 # mongo connection
-client = MongoClient('mongodb+srv://njc1749:p7hokzyhPY0oWXuv@tas.medfbei.mongodb.net/?retryWrites=true&w=majority&appName=TAS')
+client = MongoClient('mongodb+srv://nick:simplepass@tas.kuads7c.mongodb.net/')
 db = client['presentationdb']
 comment_collection = db['comments']
 file_collection = db['files']
@@ -26,44 +26,37 @@ def get_date_string():
     current_date = datetime.now().strftime('%B %d, %Y')
     return str(current_date)
 
-# sample slide decks with slides
-slide_decks = {
-    'Test Deck 1': ['Slide 1'],
-    'Test Deck 2': ['Slide 113', 'Slide 117'],
-    'Test Deck 3': ['Slide 99', 'Slide 111', 'Slide 119'],
-    'Test Deck 4': ['Slide 2', 'Slide 13', 'Slide 15'],
-    'Test Deck 5': ['Slide 7', 'Slide 9', 'Slide 27']
-}
 
-dummy_slides = {
-    'Slide 1': {
-        'header': 'Slide 1 Header Content',
-        'body': 'Slide 1 Body Content 1',
-        'documents': 'dummyDocument.csv'
-    }
-}
+@app.route('/api/select-slide/<deck_name>/<slide_name>')
+def fetch_individual_slide(deck_name, slide_name):
+    print(f'{deck_name}: {slide_name}')
+    slide_deck = deck_collection.find_one({'name': deck_name})
+    if slide_deck:
+        slides = slide_deck.get('slides', [])
+        selected_slide = next((slide for slide in slides if slide['slide_name'] == slide_name), None)
+        if selected_slide:
+            return jsonify(selected_slide)
+        else:
+            return jsonify({'error': 'Slide not Found'}), 404
+    else:
+        return jsonify({'error': 'Deck not Found'}), 404
 
-@app.route('/api/slide-info/<slide_name>')
-def get_slide_info(slide_name):
-    print(f'Slide Name: {slide_name}')
-    slideDataList = []
-    temp_info = dummy_slides.get(slide_name, {})
-    slideDataList.append(temp_info['header'])
-    slideDataList.append(temp_info['body'])
-    slideDataList.append(temp_info['documents'])
-    return jsonify({'slideDataList': slideDataList})
-
-# get decks from dummy deck data - will change to get from db
+# get slide deck names
 @app.route('/api/slide-decks')
-def get_slide_decks():
-    slideDecks = list(slide_decks.keys())
+def get_deck_names():
+    slideDecks = [deck['name'] for deck in deck_collection.find({}, {'name': 1, '_id': 0})]
     return jsonify({'slideDecks': slideDecks})
+
 
 # get deck list from dummy data - will change to get slides from db
 @app.route('/api/slides/<deck_name>')
 def get_slides(deck_name):
-    slides = slide_decks.get(deck_name, [])
-    return jsonify({'slides': slides})
+    slide_deck = deck_collection.find_one({'name': deck_name})
+    if slide_deck:
+        slide_names = [slide['slide_name'] for slide in slide_deck['slides']]
+        return jsonify({'slides': slide_names})
+    else:
+        return jsonify({'error': 'Slide deck not found'}), 404
 
 # insert new deck in db
 @app.route('/api/slide-decks/new-deck', methods=['POST'])
@@ -86,30 +79,19 @@ def create_new_deck():
 
 @app.route('/api/upload-doc', methods=['POST'])
 def upload_document():
-    #  Check if the POST request has the file part
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
 
     file = request.files['file']
-
-
-    # If the user does not select a file, the browser submits an empty file without a filename
     if file.filename == '':
         return jsonify({'error': 'No selected file'}), 400
 
-    # Assuming you want to store documents in a subdirectory named 'documents' within the backend directory
     upload_directory = os.path.join(os.getcwd(), 'documents')
 
-
-    # Create the directory if it doesn't exist
     os.makedirs(upload_directory, exist_ok=True)
 
-
-    # Save the file to the upload directory
     file_path = os.path.join(upload_directory, file.filename)
     file.save(file_path)
-
-
     return jsonify({'message': 'File uploaded successfully'}), 200
 
 
