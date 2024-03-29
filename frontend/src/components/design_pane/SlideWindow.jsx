@@ -1,7 +1,13 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import './design_styles/styles.css';
 
 const SlideWindow = ({ color, slideData }) => {
+
+    if (!slideData) {
+        return null;
+    }
+
     return (
         <Box
             style={{
@@ -15,8 +21,8 @@ const SlideWindow = ({ color, slideData }) => {
             }}
         >
             {slideData && (
-                <div className='container' style={{ marginTop: '5px', minWidth: '840px' }}>
-                    <p>{slideData.slide_name}</p>
+                <div className='slide-container'>
+                    <p className='bordered-paragraph'>{slideData.slide_name}</p>
                     <h2>{slideData.header}</h2>
                     <p>{slideData.body}</p>
                 </div>

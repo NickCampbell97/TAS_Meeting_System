@@ -10,7 +10,9 @@ const MainLayout = () => {
         setColor(color === 'white' ? 'gray' : 'white');
     };
 
-    const [slideData, setSlideData] = useState([]); // checking to pass to slide window if all data is in an array
+    const [isSlideSelected, setIsSlideSelected] = useState(false);
+
+    const [slideData, setSlideData] = useState([]); 
     const [deckName, setDeckName] = useState([]);
 
     const handleSlideClick = async (deck, slide) => {
@@ -28,17 +30,27 @@ const MainLayout = () => {
             }
             const data = await response.json();
             setSlideData(data);
+            setIsSlideSelected(true);
             console.log('data received');
         } catch (error) {
             console.error('Error fetching slide info: ', error);
         }
     };
 
+    
+    if (!slideData) {
+        return (
+            <Stack spacing={4} direction="row" style={{alignItems: 'center', marginTop: '8px' }}>
+              <SideBar onClick={handleColorChange} onSlideOpen={(deck, slide) => handleSlideClick(deck, slide)}/>
+            </Stack>
+        );
+    }
+    
 
     return (
         <Stack spacing={4} direction="row" style={{alignItems: 'center', marginTop: '8px' }}>
           <SideBar onClick={handleColorChange} onSlideOpen={(deck, slide) => handleSlideClick(deck, slide)}/>
-          <DesignContainer color={color} slideData={slideData} deckName={deckName} />
+          <DesignContainer color={color} slideData={slideData} deckName={deckName} slideSelectedCheck={isSlideSelected} />
         </Stack>
     );
 };

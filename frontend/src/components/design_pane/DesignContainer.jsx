@@ -8,9 +8,10 @@ import InsertButton from './button_options/InsertButton';
 import DuplicateButton from './button_options/DuplicateButton';
 import DeleteButton from './button_options/DeleteButton';
 import FileUploadButton from './FileUpload';
+import BlankSlideWindow from './BlankSlideWindow';
 import '@fontsource/roboto';
 
-const DesignContainer = ({ color, slideData, deckName }) => {
+const DesignContainer = ({ color, slideData, deckName, slideSelectedCheck }) => {
 
     const handleSave = () => {
 
@@ -72,7 +73,8 @@ const DesignContainer = ({ color, slideData, deckName }) => {
                 </Stack>
                 {dialogVisible && <div><FileUploadButton onComplete={hideFileDialog}/></div>}
             </Stack>
-            <SlideWindow color={color} slideData={slideData} />
+            {!slideSelectedCheck && <BlankSlideWindow />}
+            {slideSelectedCheck && <SlideWindow color={color} slideData={slideData} />}
         </Box> 
     );
 
