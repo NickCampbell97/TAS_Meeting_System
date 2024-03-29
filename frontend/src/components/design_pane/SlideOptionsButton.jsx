@@ -8,9 +8,9 @@ const SlideOptionButton = ({ onItemClick }) => {
 
     const [anchorEl, setAnchorEl] = useState(null);
     const menuItems=[
-        { label: 'Edit', action: 'action1' },
-        { label: 'Duplicate', action: 'action2' },
-        { label: 'Delete', action: 'action3' }
+        { label: 'Edit', action: 'editAction' },
+        { label: 'Duplicate', action: 'duplicateAction' },
+        { label: 'Delete', action: 'deleteAction' }
     ];
 
     const onClick = (event) => {
