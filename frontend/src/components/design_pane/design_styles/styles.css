@@ -2,14 +2,15 @@
 .slide-container {
   min-width: 500px;
   min-height: 480px;
-  margin-top: 5px;
+  margin-top: 10px;
 }
 
 
-.bordered-paragraph {
-    border: 1px solid black; /* You can adjust the border style as needed */
-    padding: 10px; /* Optional: Add padding to give space between the text and the border */
+.bordered-container {
+    border: 1px solid black; 
+    border-radius: 5px;
+    padding: 10px; 
     min-width: 250px;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
-
-

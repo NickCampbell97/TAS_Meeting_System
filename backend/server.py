@@ -26,7 +26,7 @@ def get_date_string():
     current_date = datetime.now().strftime('%B %d, %Y')
     return str(current_date)
 
-
+# get data from slide
 @app.route('/api/select-slide/<deck_name>/<slide_name>')
 def fetch_individual_slide(deck_name, slide_name):
     print(f'{deck_name}: {slide_name}')

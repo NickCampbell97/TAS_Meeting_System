@@ -1,5 +1,7 @@
 import React from 'react';
 import Box from '@material-ui/core/Box';
+import Typography from '@material-ui/core/Typography';
+import { Stack } from '@mui/material';
 import './design_styles/styles.css';
 
 const SlideWindow = ({ color, slideData }) => {
@@ -22,9 +24,11 @@ const SlideWindow = ({ color, slideData }) => {
         >
             {slideData && (
                 <div className='slide-container'>
-                    <p className='bordered-paragraph'>{slideData.slide_name}</p>
-                    <h2>{slideData.header}</h2>
-                    <p>{slideData.body}</p>
+                    <Typography variant='h3' className='bordered-container' style={{ marginTop: '10px' }}>{slideData.header}</Typography>
+                    <Typography variant='body1' className='bordered-container' style={{ marginTop: '10px' }}>{slideData.body}</Typography>
+                    <Stack spacing={4} direction="row" style={{alignItems: 'center', marginTop: '8px' }}>
+                        
+                    </Stack>
                 </div>
             )}
             
