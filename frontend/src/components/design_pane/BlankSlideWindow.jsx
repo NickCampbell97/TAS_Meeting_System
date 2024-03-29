@@ -17,7 +17,6 @@ export default function BlankSlideWindow() {
             }}
         >
             <Typography variant='h4'>Select Slide From List To Edit</Typography>
-            
         </Box>
     )
 }
