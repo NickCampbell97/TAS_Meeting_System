@@ -56,9 +56,9 @@ const DesignContainer = ({ color, slideData, deckName }) => {
     ];
     
     return (
-        <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3, backgroundColor: 'lightgray', height: '570px', width: '850px' }}>
-            <Stack spacing={4} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray', width: '840px' }}>
-                <Stack spacing={1} direction="row" style={{alignItems: 'center', backgroundColor: 'white', width: '500px', marginTop: '8px'}}>
+        <Box sx={{ flexGrow: 1, overflow: 'hidden', px: 3, backgroundColor: 'lightgray', minHeight: '570px', minWidth: '850px' }}>
+            <Stack spacing={4} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray', minWidth: '840px' }}>
+                <Stack spacing={1} direction="row" style={{alignItems: 'center', backgroundColor: 'white', minWidth: '500px', marginTop: '8px'}}>
                     <SaveButton onSave={handleSave} />
                     <InsertSelection
                         value={selectedInsertValue}

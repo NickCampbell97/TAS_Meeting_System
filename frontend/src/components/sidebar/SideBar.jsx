@@ -40,7 +40,7 @@ const SideBar = ({ onClick, onSlideOpen }) => {
     };
 
     return (
-        <div style={{ display: 'inline-block', height: '570px', width: '350px', padding: 10, border: '1px solid gray' }}>
+        <div style={{ display: 'inline-block', minHeight: '570px', minWidth: '350px', padding: 10, border: '1px solid gray' }}>
             <Stack>
               <ButtonGroup onComplete={handleRefresh} />
               <Searchbar />

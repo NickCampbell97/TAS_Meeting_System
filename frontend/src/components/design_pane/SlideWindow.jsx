@@ -6,8 +6,8 @@ const SlideWindow = ({ color, slideData }) => {
         <Box
             style={{
                 backgroundColor: color,
-                width: '848px',
-                height: '480px',
+                minWidth: '848px',
+                minHeight: '480px',
                 marginTop: '10px',
                 display: 'flex',
                 justifyContent: 'center',
@@ -15,7 +15,7 @@ const SlideWindow = ({ color, slideData }) => {
             }}
         >
             {slideData && (
-                <div style={{ marginTop: '5px' }}>
+                <div className='container' style={{ marginTop: '5px', minWidth: '840px' }}>
                     <p>{slideData.slide_name}</p>
                     <h2>{slideData.header}</h2>
                     <p>{slideData.body}</p>
