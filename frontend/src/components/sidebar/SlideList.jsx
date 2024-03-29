@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { List, ListItemButton, ListItemText, ListItemIcon } from '@mui/material';
 import ListSubheader from '@mui/material/ListSubheader';
 import FolderIcon from '@mui/icons-material/Folder';
@@ -8,28 +8,8 @@ import NewSlideButton from "./NewSlideButton";
 
 const SlideList = ({ onClick, onSlideOpen, slideDecks }) => {
 
-    //const [slideDecks, setSlideDecks] = useState([slideDecks]);
     const [slides, setSlides] = useState([]);
     const [selectedDeck, setSelectedDeck] = useState(null);
-
-   /*
-     useEffect (() => {
-        async function fetchSlideDecks() {
-            try {
-                const response = await fetch('/api/slide-decks');
-                if (!response.ok) {
-                    throw new Error('Failed to fetch slide decks');
-                }
-                const data = await response.json();
-                setSlideDecks(data.slideDecks);
-            } catch (error) {
-                console.error('Error fetching slide decks: ', error);
-            }
-        }
-
-        fetchSlideDecks();
-    }, [decks]);
-   */
 
     const handleDoubleClick = async (deckName) => {
         console.log('Double clicked on deck:', deckName);

@@ -36,17 +36,7 @@ def create_deck(i):
             }
         slide_list.append(slide)
     data['slides'] = slide_list
-
     return data
-
-# Function to generate a random slide deck
-def generateSlideDeck(i):
-    return {
-        'name': f'Presentation {i}',
-        'date_created': get_date_string(),
-        'slides': [f'Slide {randint(1, 100)}' for _ in range(randint(1, 10))]
-        # ^ generates slide into an array 1-10, give slide random index number 1-100
-    }
 
 def fetch_decks():
     slideDecks = [deck['name'] for deck in deck_collection.find({}, {'name': 1, '_id': 0})]
@@ -71,17 +61,11 @@ def fetch_individual_slide(deck_name, slide_name):
 
 #fetch_decks()
         
-fetch_individual_slide('Presentation: 1', 'Slide 86')
+#fetch_individual_slide('Presentation: 1', 'Slide 86')
         
 '''
 for i in range(1, 16):
     deck = create_deck(i)
     insert_data(deck, deck_collection)
-'''
-
-'''
-for i in range(1, 16):
-    slideDeckData = generateSlideDeck(i)
-    insert_data(slideDeckData, deck_collection)
 '''
 

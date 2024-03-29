@@ -68,7 +68,7 @@ const DesignContainer = ({ color, slideData, deckName }) => {
                     <InsertButton onClick={() => handleInsert(selectedInsertValue, deckName, slideName)} />
                     <DuplicateButton onClick={() => handleDuplicate(deckName, slideData)} />
                     <DeleteButton onClick={() => handleDelete(deckName, slideData)} />
-                    <p style={{ textAlign: 'right', marginLeft: '150px', fontSize: '14px', font: 'roboto' }}>{deckName}</p>
+                    <p style={{ textAlign: 'right', marginLeft: '130px', fontSize: '14px', font: 'roboto' }}>{deckName}</p>
                 </Stack>
                 {dialogVisible && <div><FileUploadButton onComplete={hideFileDialog}/></div>}
             </Stack>

@@ -45,8 +45,8 @@ const FileUploadButton = ({ onComplete }) => {
     };
 
     return (
-        <Stack spacing={1} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray' }}>
-            <Input type="file" fontSize='small' size='small' style={{ marginTop: '5px' }} onChange={handleFileChange} />
+        <Stack spacing={2} direction='row' style={{ alignItems: 'center', backgroundColor: 'lightgray' }}>
+            <Input type="file" fontSize='small' size='small' style={{ width: '200px', marginTop: '5px', fontSize: '14px' }} onChange={handleFileChange} />
             <Button variant='outlined' size='small' fontsize='small' startIcon={<FileUploadOutlinedIcon />} style={{ width: '100px', marginTop: '5px', color: 'black', borderColor: 'black' }} onClick={handleUpload}>Upload</Button>
         </Stack>  
     );

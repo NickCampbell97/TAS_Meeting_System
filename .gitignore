@@ -1,0 +1,12 @@
+
+
+#frontend
+/frontend/node_modules
+/frontend/coverage
+/frontend/build
+
+
+#backend 
+/backend/__pycache__
+/backend/venv
+/backend/schema
