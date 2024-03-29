@@ -47,7 +47,7 @@ def get_deck_names():
     slideDecks = [deck['name'] for deck in deck_collection.find({}, {'name': 1, '_id': 0})]
     return jsonify({'slideDecks': slideDecks})
 
-# get deck list from dummy data - will change to get slides from db
+# get deck list from db
 @app.route('/api/slides/<deck_name>')
 def get_slides(deck_name):
     slide_deck = deck_collection.find_one({'name': deck_name})

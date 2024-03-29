@@ -2,13 +2,25 @@ import React from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import { Stack } from '@mui/material';
+import SlideOptionButton from './SlideOptionsButton';
 import './design_styles/styles.css';
 
 const SlideWindow = ({ color, slideData }) => {
 
-    if (!slideData) {
-        return null;
+    const bodyList = slideData.body;
+    const initialFileList = slideData.files;
+
+    function getFileNameFromPath(filePath) {
+        const parts = filePath.split(/[\/\\]/);
+        return parts[parts.length - 1];
     }
+
+    function getFiles(files) {
+        return files.map(getFileNameFromPath);
+    }
+
+    const fileList = getFiles(initialFileList);
+
 
     return (
         <Box
@@ -24,10 +36,30 @@ const SlideWindow = ({ color, slideData }) => {
         >
             {slideData && (
                 <div className='slide-container'>
-                    <Typography variant='h3' className='bordered-container' style={{ marginTop: '10px' }}>{slideData.header}</Typography>
-                    <Typography variant='body1' className='bordered-container' style={{ marginTop: '10px' }}>{slideData.body}</Typography>
-                    <Stack spacing={4} direction="row" style={{alignItems: 'center', marginTop: '8px' }}>
+                    <div style={{ position: 'relative' }}>
+                        <Typography variant='h3' className='bordered-container' style={{ marginTop: '10px' }}>
+                            <SlideOptionButton />
+                            {slideData.header}
+                        </Typography>
+                    </div>
+                    {bodyList.map((item, index) => (
+                        <div style={{ position: 'relative' }}>
+                            <Typography key={index} variant='body1' className='body-container' style={{ marginTop: '10px' }}>
+                                <SlideOptionButton />
+                                {item}
+                            </Typography>
+                        </div>
+                    ))}
+                    <Stack spacing={4} direction="row" style={{ alignItems: 'center', marginTop: '8px', minWidth: '250px' }}>
+                    {fileList.map((item, index) => (
+                        <div style={{ position: 'relative' }}>
+                            <Typography key={index} variant='body1' className='file-container' style={{ marginTop: '10px' }}>
+                                <SlideOptionButton />
+                                {item}
+                            </Typography>
+                        </div>
                         
+                    ))}
                     </Stack>
                 </div>
             )}
