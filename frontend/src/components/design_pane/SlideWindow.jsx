@@ -7,6 +7,8 @@ import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import SlideOptionButton from './SlideOptionsButton';
 import './design_styles/styles.css';
 
+// color prop not necessary - was just in there for testing purposes
+
 const SlideWindow = ({ color, slideData }) => {
 
     const bodyList = slideData.body;

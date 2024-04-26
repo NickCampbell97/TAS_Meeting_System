@@ -6,12 +6,9 @@ import os
 app = Flask(__name__)
 
 # mongo connection
-client = MongoClient('mongodb+srv://nick:simplepass@tas.kuads7c.mongodb.net/')
+client = MongoClient('connectionstring')
 db = client['presentationdb']
-comment_collection = db['comments']
-file_collection = db['files']
 deck_collection = db['slidedecks']
-slide_collection = db['slides']
 
 # inserting data in mongo
 def insert_data(data, collection):
