@@ -1,0 +1,22 @@
+
+Example record in the slidedecks collection in presentationdb
+
+{
+	_id: ObjectId(‘660c53d4de04cf1f10c24c06’),
+    name: "Presentation 1",
+    date_created: "April 02, 2024",
+    slides: [
+        {
+            slide_name: “Slide 1”,
+            header: “Title for Slide 1”,
+            body: {0: “Body text 1”, 1: “Body text 2”}
+            files: {0: “path/to/file1.csv”,1: “path/to/file2.txt”}
+        },
+        {
+            slide_name: “Slide 2”,
+            header: “Title for Slide 2”,
+            body: {0: “Body text 1”, 1: “Body text 2”}
+            files: {0: “path/to/file3.csv”,1: “path/to/file4.txt”}
+        }
+    ]
+}

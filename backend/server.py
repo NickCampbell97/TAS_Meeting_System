@@ -5,12 +5,12 @@ import os
 
 app = Flask(__name__)
 
-# mongo connection
+# mongo connection - replace with your connection string, db instance, and collection name
 client = MongoClient('connectionstring')
 db = client['presentationdb']
 deck_collection = db['slidedecks']
 
-# inserting data in mongo
+# insert record
 def insert_data(data, collection):
     try:
         result = collection.insert_one(data)
@@ -18,12 +18,12 @@ def insert_data(data, collection):
     except Exception as e:
         print("Error inserting data:", e)
 
-# get date time as a string instead of date object for mongo to accept
+# get date time as a string instead of datetime object for mongo to accept
 def get_date_string():
     current_date = datetime.now().strftime('%B %d, %Y')
     return str(current_date)
 
-# get data from slide
+# get data from individual slide using slide deck name and slide name
 @app.route('/api/select-slide/<deck_name>/<slide_name>')
 def fetch_individual_slide(deck_name, slide_name):
     print(f'{deck_name}: {slide_name}')
@@ -38,13 +38,13 @@ def fetch_individual_slide(deck_name, slide_name):
     else:
         return jsonify({'error': 'Deck not Found'}), 404
 
-# get slide deck names
+# fetch all of the slide decks by name
 @app.route('/api/slide-decks')
 def get_deck_names():
     slideDecks = [deck['name'] for deck in deck_collection.find({}, {'name': 1, '_id': 0})]
     return jsonify({'slideDecks': slideDecks})
 
-# get deck list from db
+# get slide list from db given the name of the slide deck
 @app.route('/api/slides/<deck_name>')
 def get_slides(deck_name):
     slide_deck = deck_collection.find_one({'name': deck_name})
@@ -73,6 +73,7 @@ def create_new_deck():
         return jsonify({'error': 'Method not Allowed'}), 405
     
 
+# upload reference document - stores in documents directory
 @app.route('/api/upload-doc', methods=['POST'])
 def upload_document():
     if 'file' not in request.files:
@@ -91,5 +92,6 @@ def upload_document():
     return jsonify({'message': 'File uploaded successfully'}), 200
 
 
+# start server
 if __name__ == '__main__':
     app.run(debug=True)
